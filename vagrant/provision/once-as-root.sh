@@ -71,8 +71,8 @@ rm /etc/nginx/sites-enabled/default
 echo "Done!"
 
 info "Initialize databases for MySQL"
-mysql <<< 'CREATE DATABASE yii2basic'
-mysql <<< 'CREATE DATABASE yii2basic_test'
+mysql <<< 'CREATE DATABASE db_98ed41241026163a753fb84d07b1468896f877f9'
+mysql <<< 'CREATE DATABASE db_98ed41241026163a753fb84d07b1468896f877f9_test'
 echo "Done!"
 
 info "Install composer"
