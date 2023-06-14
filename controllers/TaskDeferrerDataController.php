@@ -4,6 +4,8 @@ namespace app\controllers;
 
 use app\models\TaskDeferrerData;
 use app\models\TaskDeferrerDataSearch;
+use DateInterval;
+use DateTime;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -111,9 +113,24 @@ class TaskDeferrerDataController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $storageId = $model->storage_id;
+        $model->delete();
 
-        return $this->redirect(['index']);
+        return $this->indexRedirectWithStorageId($storageId);
+    }
+
+    public function actionDefer($id)
+    {
+        $model = $this->findModel($id);
+
+        $model->date = (new DateTime())
+            ->add(new DateInterval('P' . $model->defer_days . 'D'))
+            ->format('Y-m-d');
+
+        $model->save();
+
+        return $this->indexRedirectWithStorageId($model->storage_id);
     }
 
     /**
@@ -130,5 +147,13 @@ class TaskDeferrerDataController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    private function indexRedirectWithStorageId($storageId)
+    {
+        return $this->redirect([
+            'index',
+            'TaskDeferrerDataSearch' => ['storage_id' => $storageId]
+        ]);
     }
 }

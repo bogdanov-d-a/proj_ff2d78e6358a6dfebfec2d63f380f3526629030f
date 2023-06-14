@@ -43,6 +43,8 @@ class TaskDeferrerDataSearch extends TaskDeferrerData
         $query = TaskDeferrerData::find();
 
         // add conditions that should always apply here
+        $query->andFilterWhere(['<=', 'date', date('Y-m-d')]);
+        $query->orderBy(['date' => 'ASC']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

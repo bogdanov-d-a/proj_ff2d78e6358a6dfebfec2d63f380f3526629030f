@@ -29,16 +29,20 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'storage_id',
             'text:ntext',
             'date',
             'defer_days',
             [
                 'class' => ActionColumn::className(),
+                'template' => '{view} {update} {delete} {defer}',
                 'urlCreator' => function ($action, TaskDeferrerData $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                },
+                'buttons' => [
+                    'defer' => function ($url) {
+                        return Html::a('Defer', $url);
+                    }
+                ]
             ],
         ],
     ]); ?>

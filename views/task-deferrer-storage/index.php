@@ -33,9 +33,20 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             [
                 'class' => ActionColumn::className(),
+                'template' => '{view} {update} {delete} {browse}',
                 'urlCreator' => function ($action, TaskDeferrerStorage $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                },
+                'buttons' => [
+                    'browse' => function ($url, $model) {
+                        return Html::a('Browse', [
+                            '/task-deferrer-data/index',
+                            'TaskDeferrerDataSearch' => [
+                                'storage_id' => $model->id
+                            ]
+                        ]);
+                    }
+                ]
             ],
         ],
     ]); ?>
