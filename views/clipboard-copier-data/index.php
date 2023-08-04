@@ -1,5 +1,6 @@
 <?php
 
+use app\helpers\Utils;
 use app\models\ClipboardCopierData;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -29,9 +30,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'storage_id',
             'name',
+            [
+                'label' => 'Copy',
+                'value' => function ($model) {
+                    $value = Utils::js_string_escape($model->value);
+                    return "<button onclick=\"navigator.clipboard.writeText('$value');\">Copy</button>";
+                },
+                'format' => 'raw'
+            ],
             'value',
             [
                 'class' => ActionColumn::className(),

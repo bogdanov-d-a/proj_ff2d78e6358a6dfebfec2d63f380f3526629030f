@@ -111,9 +111,11 @@ class ClipboardCopierDataController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $storageId = $model->storage_id;
+        $model->delete();
 
-        return $this->redirect(['index']);
+        return $this->indexRedirectWithStorageId($storageId);
     }
 
     /**
@@ -130,5 +132,13 @@ class ClipboardCopierDataController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    private function indexRedirectWithStorageId($storageId)
+    {
+        return $this->redirect([
+            'index',
+            'ClipboardCopierDataSearch' => ['storage_id' => $storageId]
+        ]);
     }
 }

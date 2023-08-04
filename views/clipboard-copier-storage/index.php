@@ -33,9 +33,20 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             [
                 'class' => ActionColumn::className(),
+                'template' => '{view} {update} {delete} {browse}',
                 'urlCreator' => function ($action, ClipboardCopierStorage $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                },
+                'buttons' => [
+                    'browse' => function ($url, $model) {
+                        return Html::a('Browse', [
+                            '/clipboard-copier-data/index',
+                            'ClipboardCopierDataSearch' => [
+                                'storage_id' => $model->id
+                            ]
+                        ]);
+                    }
+                ]
             ],
         ],
     ]); ?>

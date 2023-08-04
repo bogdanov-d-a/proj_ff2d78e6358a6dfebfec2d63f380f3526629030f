@@ -43,6 +43,7 @@ class ClipboardCopierDataSearch extends ClipboardCopierData
         $query = ClipboardCopierData::find();
 
         // add conditions that should always apply here
+        $query->orderBy(['name' => 'ASC']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
