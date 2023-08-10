@@ -10,7 +10,8 @@ use yii\grid\GridView;
 /** @var app\models\TaskDeferrerDataSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Task Deferrer Datas';
+$now = (new DateTime())->format('Y-m-d H:i:s');
+$this->title = "Task Deferrer Datas (now: $now)";
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="task-deferrer-data-index">
