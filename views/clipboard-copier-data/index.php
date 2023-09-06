@@ -1,6 +1,5 @@
 <?php
 
-use app\helpers\Utils;
 use app\models\ClipboardCopierData;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -14,6 +13,20 @@ use yii\grid\GridView;
 $this->title = 'Clipboard Copier Datas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<script>
+
+    function copyData(data) {
+        try {
+            navigator.clipboard.writeText(decodeURIComponent(escape(atob(data))));
+        } catch (error) {
+            alert('copyData failed');
+            console.error(error);
+        }
+    }
+
+</script>
+
 <div class="clipboard-copier-data-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -34,8 +47,8 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Copy',
                 'value' => function ($model) {
-                    $value = Utils::js_string_escape($model->value);
-                    return "<button onclick=\"navigator.clipboard.writeText('$value');\">Copy</button>";
+                    $value = base64_encode($model->value);
+                    return "<button onclick=\"copyData('$value');\">Copy</button>";
                 },
                 'format' => 'raw'
             ],
