@@ -47,6 +47,7 @@ class TaskDeferrerStorageSearch extends TaskDeferrerStorage
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => false,
         ]);
 
         $this->load($params);

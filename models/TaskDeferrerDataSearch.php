@@ -48,6 +48,7 @@ class TaskDeferrerDataSearch extends TaskDeferrerData
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => false,
         ]);
 
         $this->load($params);
