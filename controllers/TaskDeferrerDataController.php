@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\TaskDeferrerData;
 use app\models\TaskDeferrerDataSearch;
+use app\models\TaskDeferrerStorage;
 use DateInterval;
 use DateTime;
 use yii\web\Controller;
@@ -42,10 +43,13 @@ class TaskDeferrerDataController extends Controller
     {
         $searchModel = new TaskDeferrerDataSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
+        $storageId = $this->request->queryParams['TaskDeferrerDataSearch']['storage_id'] ?? null;
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'storageId' => $storageId,
+            'storageName' => $storageId !== null ? TaskDeferrerStorage::findOne(['id' => $storageId])?->name : null,
         ]);
     }
 
