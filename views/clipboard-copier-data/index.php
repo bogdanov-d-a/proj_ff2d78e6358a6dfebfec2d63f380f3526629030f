@@ -9,6 +9,8 @@ use yii\grid\GridView;
 /** @var yii\web\View $this */
 /** @var app\models\ClipboardCopierDataSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
+/** @var int|null $storageId */
+/** @var string|null $storageName */
 
 $this->title = 'Clipboard Copier Datas';
 $this->params['breadcrumbs'][] = $this->title;
@@ -30,6 +32,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="clipboard-copier-data-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
+
+    <h2><?= "$storageId: $storageName" ?></h2>
 
     <p>
         <?= Html::a('Create Clipboard Copier Data', ['create'], ['class' => 'btn btn-success']) ?>

@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\ClipboardCopierData;
 use app\models\ClipboardCopierDataSearch;
+use app\models\ClipboardCopierStorage;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -40,10 +41,13 @@ class ClipboardCopierDataController extends Controller
     {
         $searchModel = new ClipboardCopierDataSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
+        $storageId = $this->request->queryParams['ClipboardCopierDataSearch']['storage_id'] ?? null;
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'storageId' => $storageId,
+            'storageName' => $storageId !== null ? ClipboardCopierStorage::findOne(['id' => $storageId])?->name : null,
         ]);
     }
 
