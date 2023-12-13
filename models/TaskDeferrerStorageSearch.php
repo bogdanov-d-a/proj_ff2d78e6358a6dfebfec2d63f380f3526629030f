@@ -43,6 +43,7 @@ class TaskDeferrerStorageSearch extends TaskDeferrerStorage
         $query = TaskDeferrerStorage::find();
 
         // add conditions that should always apply here
+        $query->orderBy(['name' => 'ASC']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

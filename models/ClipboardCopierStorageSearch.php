@@ -43,6 +43,7 @@ class ClipboardCopierStorageSearch extends ClipboardCopierStorage
         $query = ClipboardCopierStorage::find();
 
         // add conditions that should always apply here
+        $query->orderBy(['name' => 'ASC']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
