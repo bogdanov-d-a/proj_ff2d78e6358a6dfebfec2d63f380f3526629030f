@@ -124,12 +124,12 @@ class TaskDeferrerDataController extends Controller
         return $this->indexRedirectWithStorageId($storageId);
     }
 
-    public function actionDefer($id)
+    public function actionDefer($id, $days)
     {
         $model = $this->findModel($id);
 
         $model->date = (new DateTime())
-            ->add(new DateInterval('P' . $model->defer_days . 'D'))
+            ->add(new DateInterval('P' . $days . 'D'))
             ->format('Y-m-d');
 
         $model->save();

@@ -37,16 +37,35 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'text:ntext',
             'date',
-            'defer_days',
+            [
+                'label' => 'Defer Days',
+                'value' => function (TaskDeferrerData $model) {
+                    return Html::a(
+                        "$model->defer_days days",
+                        Url::toRoute([
+                            'defer',
+                            'id' => $model->id,
+                            'days' => $model->defer_days
+                        ])
+                    );
+                },
+                'format' => 'raw'
+            ],
             [
                 'class' => ActionColumn::className(),
                 'template' => '{view} {update} {delete} {defer}',
-                'urlCreator' => function ($action, TaskDeferrerData $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
+                'urlCreator' => function (string $action, TaskDeferrerData $model) {
+                    $route = [$action, 'id' => $model->id];
+
+                    if ($action === 'defer') {
+                        $route['days'] = 1;
+                    }
+
+                    return Url::toRoute($route);
                 },
                 'buttons' => [
                     'defer' => function ($url) {
-                        return Html::a('Defer', $url);
+                        return Html::a('D1D', $url);
                     }
                 ]
             ],
