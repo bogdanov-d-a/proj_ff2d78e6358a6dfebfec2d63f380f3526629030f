@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\helpers\Utils;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\TaskDeferrerData;
@@ -43,7 +44,7 @@ class TaskDeferrerDataSearch extends TaskDeferrerData
         $query = TaskDeferrerData::find();
 
         // add conditions that should always apply here
-        $query->andFilterWhere(['<=', 'date', date('Y-m-d')]);
+        $query->andFilterWhere(['<=', 'date', TaskDeferrerConfig::today()->format(Utils::DATE_FORMAT)]);
         $query->orderBy(['date' => 'ASC']);
 
         $dataProvider = new ActiveDataProvider([

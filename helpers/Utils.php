@@ -4,6 +4,8 @@ namespace app\helpers;
 
 class Utils
 {
+    const DATE_FORMAT = 'Y-m-d';
+
     public static function js_string_escape($data)
     {
         $safe = "";

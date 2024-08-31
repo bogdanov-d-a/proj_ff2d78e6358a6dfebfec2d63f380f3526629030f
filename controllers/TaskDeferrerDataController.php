@@ -2,11 +2,12 @@
 
 namespace app\controllers;
 
+use app\helpers\Utils;
+use app\models\TaskDeferrerConfig;
 use app\models\TaskDeferrerData;
 use app\models\TaskDeferrerDataSearch;
 use app\models\TaskDeferrerStorage;
 use DateInterval;
-use DateTime;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -128,9 +129,9 @@ class TaskDeferrerDataController extends Controller
     {
         $model = $this->findModel($id);
 
-        $model->date = (new DateTime())
+        $model->date = TaskDeferrerConfig::today()
             ->add(new DateInterval('P' . $days . 'D'))
-            ->format('Y-m-d');
+            ->format(Utils::DATE_FORMAT);
 
         $model->save();
 

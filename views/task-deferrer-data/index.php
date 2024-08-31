@@ -1,5 +1,7 @@
 <?php
 
+use app\helpers\Utils;
+use app\models\TaskDeferrerConfig;
 use app\models\TaskDeferrerData;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -12,7 +14,7 @@ use yii\grid\GridView;
 /** @var int|null $storageId */
 /** @var string|null $storageName */
 
-$now = (new DateTime())->format('Y-m-d H:i:s');
+$today = TaskDeferrerConfig::today()->format(Utils::DATE_FORMAT);
 
 $this->title = 'Task Deferrer Datas';
 $this->params['breadcrumbs'][] = $this->title;
@@ -21,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <h2><?= "$storageId: $storageName&emsp;now: $now" ?></h2>
+    <h2><?= "$storageId: $storageName&emsp;today: $today" ?></h2>
 
     <p>
         <?= Html::a('Create Task Deferrer Data', ['create'], ['class' => 'btn btn-success']) ?>
