@@ -16,10 +16,16 @@ use Yii;
 class TaskDeferrerConfig extends \yii\db\ActiveRecord
 {
     public const KEY_TODAY = 'today';
+    public const KEY_SHOW_ALL = 'show_all';
 
     public static function today(): DateTime
     {
         return DateTime::createFromFormat(Utils::DATE_FORMAT, self::getValue(self::KEY_TODAY));
+    }
+
+    public static function showAll(): bool
+    {
+        return self::getValue(self::KEY_SHOW_ALL) === 'true';
     }
 
     public static function getValue(string $key): string
