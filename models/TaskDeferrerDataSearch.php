@@ -49,7 +49,10 @@ class TaskDeferrerDataSearch extends TaskDeferrerData
             $query->andFilterWhere(['<=', 'date', TaskDeferrerConfig::today()->format(Utils::DATE_FORMAT)]);
         }
 
-        $query->orderBy(['date' => 'ASC']);
+        $query->orderBy([
+            'date' => 'ASC',
+            'text' => 'ASC',
+        ]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
